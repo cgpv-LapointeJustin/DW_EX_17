@@ -1,53 +1,55 @@
 const inputTache = document.getElementById("saisie-tache");
+const boutonTache = document.querySelector(".icone-ajout");
+const boutonSup = document.querySelector(".icone-trash");
 const liste = document.querySelector(".liste-afaire");
-const select = document.querySelectorAll("liste liste-afaire");
+const select = document.querySelectorAll(".liste-afaire");
 const listeComplete = document.querySelector(".liste-fait");
 
-//const liste = document.getEle
-var newTask = document.createElement("li");
-var fait = document.getElementsByClassName("fait");
-var endTask = document.createElement("li");
 
-var nbTache = 0;
+
+var fait = document.getElementsByClassName("fait");
 
 
 inputTache.addEventListener("keydown", (e) => {
     if (e.key == "Enter") {
         AjouterTache(); 
-        
-        console.log(nbTache);
     }
 });
 
+boutonTache.addEventListener("click", function() {
+        AjouterTache();
+});
 
+boutonSup.addEventListener("click", function() {
+        Delete();
+});
 
 function AjouterTache() {
+    var newTask = document.createElement("li");
     console.log("Ajout d'une tâche");
     newTask.classList.add("tache");
     newTask.innerText = inputTache.value;
     console.log(newTask);
-    liste.append(newTask);
-    newTask = document.createElement("li");
-    var termine = document.querySelectorAll(".tache")
-    
-    termine.forEach((element, i) => {
-        element.addEventListener("click", function() {
-            termine[i].classList.add("fait");
+    newTask.addEventListener("click", (e) => {
+            e.target.classList.add("fait");
             console.log("tache termine");
+            listeComplete.append(e.target);
 
-            endTask.classList.add("tache");
-            endTask.innerText = termine[i].innerText;
-            console.log(endTask);
-            listeComplete.append(endTask);
-            endTask = document.createElement("li");
-        })
     })
+    liste.append(newTask);
+ }
+    
 
-}
-
-function RetirerTache(element) {
+function RetirerTache() {
     console.log("retrait d'une tache");
     console.log(element);
     element.classList.add("fait");
 
 }
+
+
+function Delete() {
+    listeComplete.replaceChildren();
+    liste.replaceChildren();
+};
+
